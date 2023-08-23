@@ -27,13 +27,30 @@ public class PetshopService {
 	}
 	
 	@Transactional(readOnly = true)
-	public PetshopDTO findById(Long id){
-		Petshop result = petshopRepository.findById(id).get();			
+	public PetshopDTO findById(Long id) throws Exception{
+		Petshop result = petshopRepository.findById(id).orElseThrow(() -> new Exception("Petshop não encontrado"));			
 		return new PetshopDTO(result);
 	}
 	
-	private void savePetshop(Petshop petshop) {
-		this.petshopRepository.save(petshop);
+	@Transactional
+	public PetshopDTO savePetshop(PetshopDTO petshopDTO) {
+	    Petshop petshop = new Petshop();
+	    petshop.setId(petshopDTO.getId());
+	    petshop.setName(petshopDTO.getName());
+	    petshop.setKmDistance(petshopDTO.getKmDistance());
+	    petshop.setWeekdayPriceSmallDog(petshopDTO.getWeekdayPriceSmallDog());
+	    petshop.setWeekdayPriceBigDog(petshopDTO.getWeekdayPriceBigDog());
+	    petshop.setWeekendPriceSmallDog(petshopDTO.getWeekendPriceSmallDog());
+	    petshop.setWeekendPriceBigDog(petshopDTO.getWeekendPriceBigDog());
+	    
+	    petshopRepository.save(petshop);
+	    return new PetshopDTO(petshop);
+	}
+	
+	@Transactional
+	public void deleteById(Long id) throws Exception{
+		Petshop result = petshopRepository.findById(id).orElseThrow(() -> new Exception("Petshop não encontrado"));			
+		petshopRepository.deleteById(result.getId());
 	}
 	
 	public Boolean isWeekendDay (LocalDate date) {
