@@ -19,6 +19,20 @@ public class PetshopDTO {
 	
 	private BigDecimal weekendPriceBigDog;
 	
+	public PetshopDTO() {
+	}
+
+	public PetshopDTO(Long id, String name, Double kmDistance, BigDecimal weekdayPriceSmallDog,
+	         BigDecimal weekdayPriceBigDog, BigDecimal weekendPriceSmallDog, BigDecimal weekendPriceBigDog) {
+	    this.id = id;
+	    this.name = name;
+	    this.kmDistance = kmDistance;
+	    this.weekdayPriceSmallDog = weekdayPriceSmallDog;
+	    this.weekdayPriceBigDog = weekdayPriceBigDog;
+	    this.weekendPriceSmallDog = weekendPriceSmallDog;
+	    this.weekendPriceBigDog = weekendPriceBigDog;
+	}
+	
 	public PetshopDTO(Petshop petshop) {
 		this.id = petshop.getId();
 		this.name = petshop.getName();
@@ -28,6 +42,9 @@ public class PetshopDTO {
         this.weekendPriceSmallDog = petshop.getWeekendPriceSmallDog();
         this.weekendPriceBigDog = petshop.getWeekendPriceBigDog();
 	}
+	
+	
+
 
 	public Long getId() {
 		return id;
