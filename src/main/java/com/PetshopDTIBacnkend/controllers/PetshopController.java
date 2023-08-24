@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.PetshopDTIBacnkend.dtos.BestPetShopDTO;
 import com.PetshopDTIBacnkend.dtos.PetshopDTO;
+import com.PetshopDTIBacnkend.dtos.SearchDTO;
 import com.PetshopDTIBacnkend.services.PetshopService;
 
 
@@ -44,6 +46,18 @@ public class PetshopController {
 	public ResponseEntity<PetshopDTO> deletePetshop(@PathVariable Long petshopId) throws Exception{
 		this.petshopService.deleteById(petshopId);
 		return new ResponseEntity<>(null, HttpStatus.OK) ;
+	}
+	
+	@PostMapping(value = "/best")
+	public ResponseEntity<BestPetShopDTO>  findBest(@RequestBody SearchDTO searchDTO){
+		BestPetShopDTO result = petshopService.findBestPetshop(searchDTO);
+		return new ResponseEntity<>(result, HttpStatus.OK) ;
+	}
+	
+	@PostMapping(value = "/bestlist")
+	public ResponseEntity<List<BestPetShopDTO>>  findBestList(@RequestBody SearchDTO searchDTO){
+		List<BestPetShopDTO> result = petshopService.findBestPetshopList(searchDTO);
+		return new ResponseEntity<>(result, HttpStatus.OK) ;
 	}
 
 }

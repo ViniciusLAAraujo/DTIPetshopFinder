@@ -3,13 +3,18 @@ package com.PetshopDTIBacnkend.services;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.PetshopDTIBacnkend.dtos.BestPetShopDTO;
 import com.PetshopDTIBacnkend.dtos.PetshopDTO;
+import com.PetshopDTIBacnkend.dtos.SearchDTO;
 import com.PetshopDTIBacnkend.entities.Petshop;
 import com.PetshopDTIBacnkend.repositories.PetshopRepository;
 
@@ -75,5 +80,29 @@ public class PetshopService {
 			prices[1] = bigDogPrice;
 	        return prices ;
 		}
+	}
+	
+	public List<BestPetShopDTO>  findBestPetshopList(SearchDTO searchDTO) {
+		List<Petshop> petshops = petshopRepository.findAll();
+		List<BestPetShopDTO> petshopToBestList = new ArrayList<BestPetShopDTO>();
+		for(Petshop petshop : petshops){
+			BigDecimal[] prices = priceToPay(petshop, searchDTO.getDate());
+			BigDecimal smallDogAmount = BigDecimal.valueOf( searchDTO.getNumSmallDog() ).multiply( prices[0] );
+			BigDecimal bigDogAmount = BigDecimal.valueOf( searchDTO.getNumBigDog() ).multiply( prices[1] );
+			BigDecimal totalAmount = smallDogAmount.add(bigDogAmount);
+			petshopToBestList.add(new BestPetShopDTO(petshop.getId(),petshop.getName(),petshop.getKmDistance(),totalAmount,smallDogAmount,bigDogAmount));
+		}
+		List<BestPetShopDTO> sortedBestList = petshopToBestList.stream()
+			    .sorted(Comparator.comparing(BestPetShopDTO::getTotalAmount)
+			        .thenComparing(BestPetShopDTO::getKmDistance))
+			    .collect(Collectors.toList());
+//		List<BestPetShopDTO> sortedBestList = petshopToBestList.stream()
+//                .sorted((pets1, pets2) -> pets1.getTotalAmount().compareTo(pets2.getBigDogAmount()))
+//                .collect(Collectors.toList());
+		return sortedBestList;
+	}
+	
+	public BestPetShopDTO findBestPetshop (SearchDTO searchDTO) {
+		return findBestPetshopList(searchDTO).get(0);
 	}
 }
