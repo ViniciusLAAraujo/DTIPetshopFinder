@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,13 @@ import com.PetshopDTIBacnkend.dtos.SearchDTO;
 import com.PetshopDTIBacnkend.entities.Petshop;
 import com.PetshopDTIBacnkend.repositories.PetshopRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 
 
 @Service
 public class PetshopService {
+	
 	@Autowired
 	private PetshopRepository petshopRepository;
 	
@@ -33,8 +37,11 @@ public class PetshopService {
 	
 	@Transactional(readOnly = true)
 	public PetshopDTO findById(Long id) throws Exception{
-		Petshop result = petshopRepository.findById(id).orElseThrow(() -> new Exception("Petshop não encontrado"));			
-		return new PetshopDTO(result);
+		Optional<Petshop> result = petshopRepository.findById(id);
+		if (!result.isPresent()){
+			throw new EntityNotFoundException("Petshop não encontrado");
+		}
+		return new PetshopDTO(result.get());
 	}
 	
 	@Transactional
@@ -54,7 +61,7 @@ public class PetshopService {
 	
 	@Transactional
 	public void deleteById(Long id) throws Exception{
-		Petshop result = petshopRepository.findById(id).orElseThrow(() -> new Exception("Petshop não encontrado"));			
+		Petshop result = petshopRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Petshop não encontrado"));		
 		petshopRepository.deleteById(result.getId());
 	}
 	
@@ -63,12 +70,12 @@ public class PetshopService {
 	     return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
 	}
 	
-	public BigDecimal[] priceToPay(Petshop petshop, LocalDate date) {
+	private BigDecimal[] priceToPay(Petshop petshop, LocalDate date) {
 		BigDecimal[] prices = new BigDecimal[2];
 		if (isWeekendDay(date)) {
 			BigDecimal smallDogPrice = (petshop.getWeekendPriceSmallDog() != null && petshop.getWeekendPriceSmallDog().compareTo(BigDecimal.ZERO) != 0) ? petshop.getWeekendPriceSmallDog(): petshop.getWeekdayPriceSmallDog();
-
 			BigDecimal bigDogPrice = (petshop.getWeekendPriceBigDog() != null && petshop.getWeekendPriceSmallDog().compareTo(BigDecimal.ZERO) != 0) ? petshop.getWeekendPriceBigDog() : petshop.getWeekdayPriceBigDog();
+
 			prices[0] = smallDogPrice;
 			prices[1] = bigDogPrice;
 	        return prices ;
@@ -104,5 +111,9 @@ public class PetshopService {
 	
 	public BestPetShopDTO findBestPetshop (SearchDTO searchDTO) {
 		return findBestPetshopList(searchDTO).get(0);
+	}
+	
+	public void saveInitialPetshop(Petshop petshop) {
+		petshopRepository.save(petshop);
 	}
 }
