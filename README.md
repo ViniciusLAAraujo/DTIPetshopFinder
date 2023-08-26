@@ -1,7 +1,7 @@
 # Backend desafio Petshop DTI
 
 <p align="center">
-  <img src="https://github.com/ViniciusLAAraujo/DTIPetshopFinder/assets/90988825/c6d3a421-a13f-48ae-a014-d75f883d5ce2" alt="logo" width="250" height="250">
+  <img src="https://github.com/ViniciusLAAraujo/DTIPetshopFinder/assets/90988825/69c87ef2-e2f7-4805-8bd0-36e2396d6185" alt="logo" width="250" height="250">
 </p>
 
 Este é o backend do projeto Petshop, que é responsável por fornecer informações sobre petshops e encontrar o melhor petshop com base em parâmetros de preço e distância para uma aplicação React.
@@ -75,7 +75,7 @@ No diretório `src/test/...`, pode ser encontrado a classe de teste do serviço 
 
 Testes unitários validados
 <p align="center">
-  <img src="https://github.com/ViniciusLAAraujo/DTIPetshopFinder/assets/90988825/ab6d424b-25e2-4bb5-a12d-a40e42ec2515" alt="tests" width="200" height="200">
+  <img src="https://github.com/ViniciusLAAraujo/DTIPetshopFinder/assets/90988825/422f24c2-bcb3-436c-b579-290bfc099be0" alt="tests" width="200" height="200">
 </p>
 
 ## API Endpoints
