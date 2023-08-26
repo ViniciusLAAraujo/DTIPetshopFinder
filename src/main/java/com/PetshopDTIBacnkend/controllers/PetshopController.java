@@ -19,7 +19,8 @@ import com.PetshopDTIBacnkend.dtos.PetshopDTO;
 import com.PetshopDTIBacnkend.dtos.SearchDTO;
 import com.PetshopDTIBacnkend.services.PetshopService;
 
-
+/*Controller que gerencia os endpoints se comunicando com o serviços recebendo os pedidos do cliente via DTO 
+ * (por questões de segurança e para enconomia de rescursos)*/
 @RestController
 @RequestMapping(value = "/petshop")
 @CrossOrigin(origins = "*")

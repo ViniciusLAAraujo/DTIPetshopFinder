@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import com.PetshopDTIBacnkend.entities.Petshop;
 
+/* Mesmo que este DTO possua todos os campos da entidade, é importante manter a arquitetura em camadas
+ *  e comunicar através das camadas Service > Controller > Cliente. */
 public class PetshopDTO {
 	private Long id;
 	

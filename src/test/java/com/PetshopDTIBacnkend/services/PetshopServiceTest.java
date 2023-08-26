@@ -18,16 +18,23 @@ import com.PetshopDTIBacnkend.dtos.SearchDTO;
 import com.PetshopDTIBacnkend.entities.Petshop;
 import com.PetshopDTIBacnkend.repositories.PetshopRepository;
 
+
+/* Teste para principal funcionalidade do desafio */
 @ExtendWith(MockitoExtension.class)
 public class PetshopServiceTest {
 	
+	/* @Mock e @InjectMocks do Mockito permite simular o comportamento do repositório PetshopRepository, garantindo 
+	 * que os testes sejam isolados e não dependam do banco de dados.*/
+	
 	@InjectMocks
-	PetshopService petshopService;
+	PetshopService petshopService; //Injeta as simulações nas dependencias da classe
 	
 	@Mock
-	PetshopRepository petshopRepository;
+	PetshopRepository petshopRepository; //Cria a dependencia da classe
 
 	
+	/* Cada um dos três testes a seguir verifica se, para o banco de dados base e os parâmetros de pesquisa dados, 
+	 * o nome do petshop selecionado como o melhor é o correto, com base no critério de melhor preço e proximidade. */
 
 	@Test
 	public void findBestPetshopTestShouldChowChawgasBest () {

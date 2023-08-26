@@ -2,6 +2,9 @@ package com.PetshopDTIBacnkend.dtos;
 
 import java.math.BigDecimal;
 
+
+/* Controller que gerencia os endpoints, comunicando-se com os serviços e recebendo os pedidos do cliente via DTO
+(por questões de segurança e para economia de recursos). */
 public class BestPetShopDTO {
 	private Long id;
 	

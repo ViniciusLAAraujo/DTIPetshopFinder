@@ -8,10 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+/* Entidade de petshop, conforme discutido no README, a decisão foi implementar as 2 diferenças de preço como atributos. */
 @Entity(name = "petshop")
 @Table(name="petshop")
-
 public class Petshop {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

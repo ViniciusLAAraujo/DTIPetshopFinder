@@ -21,7 +21,9 @@ public class PetshopDtiBacnkendApplication implements ApplicationRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(PetshopDtiBacnkendApplication.class, args);
 	}
-
+	
+	
+	// Carrega sempre que a aplicação é inicializada os 3 Petshops de exemplo do desafio no H2.
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		Petshop meuCaninoFeliz = new Petshop(1L,  "Meu Canino Feliz",  2.0, BigDecimal.valueOf(20.00),

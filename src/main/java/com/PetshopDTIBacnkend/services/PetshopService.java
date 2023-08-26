@@ -22,7 +22,7 @@ import com.PetshopDTIBacnkend.repositories.PetshopRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 
-
+/* Serviço que realiza as pesquisas e o tratamento dos dados obtidos no banco. */
 @Service
 public class PetshopService {
 	
@@ -44,6 +44,10 @@ public class PetshopService {
 		return new PetshopDTO(result.get());
 	}
 	
+
+	/* Operação para receber por um DTO todos os dados presentes em um Petshop via JSON, 
+	 * permitindo a alteração de um petshop existente ou a criação de um novo caso o 
+	 * ID enviado seja válido ou ainda não exista. */
 	@Transactional
 	public PetshopDTO savePetshop(PetshopDTO petshopDTO) {
 	    Petshop petshop = new Petshop();
@@ -65,11 +69,13 @@ public class PetshopService {
 		petshopRepository.deleteById(result.getId());
 	}
 	
+	/* Segundo a data recebida, devolva se ela é um final de semana. */
 	private Boolean isWeekendDay (LocalDate date) {
 		 DayOfWeek dayOfWeek = date.getDayOfWeek();
 	     return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
 	}
 	
+	/* Função que recebe o petshop e devolve os dois preços unitários ajustados para o dia enviado pelo cliente. */
 	private BigDecimal[] priceToPay(Petshop petshop, LocalDate date) {
 		BigDecimal[] prices = new BigDecimal[2];
 		if (isWeekendDay(date)) {
@@ -89,6 +95,9 @@ public class PetshopService {
 		}
 	}
 	
+	/* Função que, a partir de uma lista com todos os petshops, calcula o total a ser pago por banhos de cães pequenos 
+	 * e grandes, de forma separada e conjunta. Em seguida, utiliza o Comparator na lista completa para ordenar por 
+	 * preço e, em seguida, por distância (o algoritmo por trás dessa função é o MergeSort). */
 	public List<BestPetShopDTO>  findBestPetshopList(SearchDTO searchDTO) {
 		List<Petshop> petshops = petshopRepository.findAll();
 		List<BestPetShopDTO> petshopToBestList = new ArrayList<BestPetShopDTO>();
@@ -103,16 +112,15 @@ public class PetshopService {
 			    .sorted(Comparator.comparing(BestPetShopDTO::getTotalAmount)
 			        .thenComparing(BestPetShopDTO::getKmDistance))
 			    .collect(Collectors.toList());
-//		List<BestPetShopDTO> sortedBestList = petshopToBestList.stream()
-//                .sorted((pets1, pets2) -> pets1.getTotalAmount().compareTo(pets2.getBigDogAmount()))
-//                .collect(Collectors.toList());
 		return sortedBestList;
 	}
 	
+	/* Função principal do desafio: a partir da lista ordenada dos melhores petshops, retorne o primeiro. */
 	public BestPetShopDTO findBestPetshop (SearchDTO searchDTO) {
 		return findBestPetshopList(searchDTO).get(0);
 	}
 	
+	/* Operação necessária para inicializar os primeiros petshops. */
 	public void saveInitialPetshop(Petshop petshop) {
 		petshopRepository.save(petshop);
 	}

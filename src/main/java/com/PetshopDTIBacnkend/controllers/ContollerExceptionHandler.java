@@ -8,6 +8,10 @@ import com.PetshopDTIBacnkend.dtos.ExceptionDTO;
 
 import jakarta.persistence.EntityNotFoundException;
 
+
+/* Classe que recebe exceções lançadas ao longo do programa, devolvendo uma resposta mais 
+ * apropriada com o intuito de ocultar o rastreamento do usuário final e apresentar um código 
+ * de status e mensagem tratados. */
 @RestControllerAdvice
 public class ContollerExceptionHandler {
 	
