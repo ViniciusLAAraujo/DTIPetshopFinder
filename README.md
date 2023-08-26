@@ -6,11 +6,12 @@
 
 Este é o backend do projeto Petshop, que é responsável por fornecer informações sobre petshops e encontrar o melhor petshop com base em parâmetros de preço e distância para uma aplicação React.
 
-## Tabela de Conteudos
+## Tabela de Conteúdos
 
 - [Instruções para Executar o Sistema](#instruções-para-executar-o-sistema)
 - [Premissas Assumidas](#premissas-assumidas)
 - [Decisões de Projeto](#decisões-de-projeto)
+- [Organização de Pastas no Projeto Spring](#organização-de-pastas-no-projeto-spring)
 - [API Endpoints](#api-endpoints)
   - [Petshop Endpoints](#petshop-endpoints)
     - [findAll() / Encontra todos](#findall--encontra-todos)
@@ -55,6 +56,27 @@ Algumas decisões de projeto importantes incluem:
 - Armazenamento dos dados dos petshops em um banco de dados usando o JPA (Java Persistence API).
 - Uso do H2 Database devido à sua facilidade de configuração e alta velocidade, tornando-o ideal para desenvolvimento rápido e testes.
 - Implementação de endpoints REST para listar todos os petshops, encontrar um petshop por ID, salvar um novo petshop e calcular o melhor petshop com base nos parâmetros de busca.
+
+## Organização de Pastas no Projeto Spring
+
+No diretório `src/main/...`, nossa aplicação Spring segue uma estrutura organizada para manter a clareza e a modularidade do código. Aqui está uma breve descrição de cada pasta:
+
+- **controllers**: controladores, que são responsáveis por lidar com as requisições HTTP, interagem com os serviços por meio de DTOs (Data Transfer Objects).
+
+- **dtos**: contém os Data Transfer Objects, que são utilizados para transferir dados entre o controlador e o serviço.
+
+- **entities**: entidades, representam os modelos de dados do nosso aplicativo. As entidades são mapeadas para tabelas no banco de dados e são acessadas por meio dos repositórios.
+
+- **repositories**: Os repositórios são responsáveis por interagir com o banco de dados.
+
+- **services**: contém os serviços da aplicação, que encapsulam a lógica de negócios. Eles utilizam os repositórios para acessar os dados e podem ser chamados pelos controladores para processar as solicitações dos clientes.
+
+No diretório `src/test/...`, pode ser encontrado a classe de teste do serviço que realiza a lógica principal do desafio.
+
+Testes unitários validados
+<p align="center">
+  <img src="https://github.com/ViniciusLAAraujo/DTIPetshopFinder/assets/90988825/ab6d424b-25e2-4bb5-a12d-a40e42ec2515" alt="tests" width="200" height="200">
+</p>
 
 ## API Endpoints
 
