@@ -65,7 +65,7 @@ public class PetshopService {
 		petshopRepository.deleteById(result.getId());
 	}
 	
-	public Boolean isWeekendDay (LocalDate date) {
+	private Boolean isWeekendDay (LocalDate date) {
 		 DayOfWeek dayOfWeek = date.getDayOfWeek();
 	     return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
 	}
