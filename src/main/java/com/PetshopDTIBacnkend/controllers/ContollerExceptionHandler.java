@@ -1,4 +1,4 @@
-package com.PetshopDTIBacnkend.infra;
+package com.PetshopDTIBacnkend.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
